@@ -1,0 +1,31 @@
+.h5p-music-composition-exercises {
+  text-align: center;
+}
+
+.h5p-music-composition-exercises .h5p-music-composition-exercises-preview {
+  text-align: initial;
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-play::before {
+  content: '\f04b';
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-renew {
+  display: block;
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-renew::before {
+  content: '\f021';
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-reply::before {
+  content: '\f058';
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-reset::before {
+  content: '\f12d';
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-show-test::before {
+  content: '\f135';
+}

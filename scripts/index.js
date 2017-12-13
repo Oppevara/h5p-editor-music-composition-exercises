@@ -30,7 +30,7 @@
 
 var H5PEditor = H5PEditor || {};
 
-H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercises = (function($) {
+H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercises = (function($, JoubelUI) {
   /**
    * Constructor function
    * @param       {object}   parent   Parent representation
@@ -95,11 +95,11 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     var self = this;
 
     self.$container = $('<div>', {
-      'class': 'field field-name-' + self.field.name + ' h5p-grid-music-composition-exercises group'
+      'class': 'field field-name-' + self.field.name + ' h5p-music-composition-exercises group'
     });
 
     self.$generatePreviewButton = $('<div>', {
-      'class': 'h5peditor-button h5peditor-button-textual',
+      'class': 'h5peditor-button h5peditor-button-textual generate-preview',
       'role': 'button',
       'tabindex': '0',
       'aria-disabled': 'false',
@@ -123,65 +123,92 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     $('<p>', {
       'id': 'description'
     }).appendTo(self.$exercisePreviewContainer);
-    $('<button>', {
+    JoubelUI.createButton({
       'id': 'playButton',
-      'text': 'Mängi'
-    }).on('click', function() {
-      exercise.play();
-    }).appendTo(self.$exercisePreviewContainer);
+      'class': 'h5p-music-compositon-exercises-play',
+      'html': 'Mängi',
+      'on': {
+        'click': function() {
+          exercise.play();
+        }
+      },
+      'appendTo': self.$exercisePreviewContainer
+    });
     $('<div>', {
       'id': 'mainCanvas'
     }).appendTo(self.$exercisePreviewContainer);
-    $('<button>', {
+    JoubelUI.createButton({
       'id': 'renewButton',
-      'text': 'Uuenda'
-    }).on('click', function() {
-      exercise.renew();
-    }).appendTo(self.$exercisePreviewContainer);
+      'class': 'h5p-music-compositon-exercises-renew',
+      'html': 'Uuenda',
+      'on': {
+        'click': function() {
+          exercise.renew();
+        }
+      },
+      'appendTo': self.$exercisePreviewContainer
+    });
     $('<span>', {
       'id': 'question'
     }).appendTo(self.$exercisePreviewContainer);
     $('<span>', {
       'id': 'responseDiv'
     }).appendTo(self.$exercisePreviewContainer);
-    $('<button>', {
+    JoubelUI.createButton({
       'id': 'replyButton',
-      'text': 'Vasta'
-    }).on('click', function() {
-      exercise.checkResponse();
-    }).appendTo(self.$exercisePreviewContainer);
+      'class': 'h5p-music-compositon-exercises-reply',
+      'html': 'Vasta',
+      'on': {
+        'click': function() {
+          exercise.checkResponse();
+        }
+      },
+      'appendTo': self.$exercisePreviewContainer
+    });
     $('<p>', {
       'id': 'feedback'
     }).appendTo(self.$exercisePreviewContainer);
     $('<span>', {
-      'text': 'Katseid:'
+      'text': 'Katseid: '
     }).append($('<label>', {
       'id': 'attempts',
       'text': '0'
     })).appendTo(self.$exercisePreviewContainer);
     $('<span>', {
-      'text': 'Neist õigeid vastuseid:'
+      'text': ' Neist õigeid vastuseid: '
     }).append($('<label>', {
       'id': 'score',
       'text': '0'
     })).appendTo(self.$exercisePreviewContainer);
-    $('<button>', {
+    JoubelUI.createButton({
       'id': 'resetButton',
-      'text': 'Nulli'
-    }).on('click', function() {
-      exercise.attempts = 0;
-      exercise.score = 0;
-      attempts.innerHTML = '0';
-      score.innerHTML = '0';
+      'class': 'h5p-music-compositon-exercises-reset',
+      'html': 'Nulli',
+      'on': {
+        'click': function() {
+          exercise.attempts = 0;
+          exercise.score = 0;
+          attempts.innerHTML = '0';
+          score.innerHTML = '0';
+        }
+      },
+      'appendTo': self.$exercisePreviewContainer
+    });
+    var resultsElement = $('<div>', {
+      'html': 'Kui tunned, et oled valmis <b>testi sooritama</b>, vajuta: ',
+      'class': 'resuts'
     }).appendTo(self.$exercisePreviewContainer);
-    $('<span>', {
-      'html': 'Kui tunned, et oled valmis <b>testi sooritama</b>, vajuta:'
-    }).append($('<button>', {
+    JoubelUI.createButton({
       'id': 'showTestButton',
-      'text': 'Test'
-    }).on('click', function() {
-      testDiv.style.visibility = 'visible';
-    })).appendTo(self.$exercisePreviewContainer);
+      'class': 'h5p-music-compositon-exercises-show-test',
+      'html': 'Test',
+      'on': {
+        'click': function() {
+          testDiv.style.visibility = 'visible';
+        }
+      },
+      'appendTo': resultsElement
+    });
     $('<div>', {
       'id': 'testDiv',
       'style': 'visibility:hidden;'
@@ -213,4 +240,4 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
   };
 
   return MusicCompositionExercises;
-})(H5P.jQuery);
+})(H5P.jQuery, H5P.JoubelUI);
