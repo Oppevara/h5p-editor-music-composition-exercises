@@ -31,7 +31,7 @@
       "path": "scripts/name_duration.js"
     },
     {
-      "path": "recognize_key_signature.js"
+      "path": "scripts/recognize_key_signature.js"
     }
   ]
 }

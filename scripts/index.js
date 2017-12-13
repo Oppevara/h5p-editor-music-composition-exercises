@@ -51,8 +51,15 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
   };
 
   MusicCompositionExercises.prototype.generatePreview = function() {
-    console.log('type >>>', this.getType());
-    // TODO Need to create an exercise instance if one does not exist
+    if ( this.$exercisePreviewContainer.is(':hidden') ) {
+      this.$exercisePreviewContainer.show();
+    }
+
+    // Close AudioContext of a previous exercise, might thorow an exception if too many are being open
+    if ( window.exercise && typeof window.exercise === 'object' ) {
+      window.exercise.close();
+    }
+
     // Passing that to the functions is a must, current global variables will not cut it
     switch(this.getType()) {
       case '1.2.2':
@@ -74,9 +81,8 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
         recognizeKeySignature();
         break;
       default:
-        alert('NO SUCH EXERCISE TYPE'); // XXX Requires translation
+        alert(H5PEditor.t('H5PEditor.MusicCompositionExercises', 'invalidExerciseType', {}));
     }
-    throw 'Not Implemented';
   };
 
   /**
@@ -97,14 +103,91 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       'role': 'button',
       'tabindex': '0',
       'aria-disabled': 'false',
-      'text': H5PEditor.t('H5PEditor.MusicCompositionExercises', 'generatePreview', {})
+      'text': H5PEditor.t('H5PEditor.MusicCompositionExercises', 'generateExercisePreview', {})
     }).on('click', function() {
       self.generatePreview();
     }).appendTo(self.$container);
 
     self.$exercisePreviewContainer = $('<div>', {
-      'class': 'h5p-music-composition-exercises'
+      class: 'h5p-music-composition-exercises-preview',
+      style: 'display:none'
     });
+
+    // TODO This has to move somewhere
+    $('<h1>', {
+      'id': 'title'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<h2>', {
+      'id': 'exerciseTitle'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<p>', {
+      'id': 'description'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<button>', {
+      'id': 'playButton',
+      'text': 'Mängi'
+    }).on('click', function() {
+      exercise.play();
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<div>', {
+      'id': 'mainCanvas'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<button>', {
+      'id': 'renewButton',
+      'text': 'Uuenda'
+    }).on('click', function() {
+      exercise.renew();
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<span>', {
+      'id': 'question'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<span>', {
+      'id': 'responseDiv'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<button>', {
+      'id': 'replyButton',
+      'text': 'Vasta'
+    }).on('click', function() {
+      exercise.checkResponse();
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<p>', {
+      'id': 'feedback'
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<span>', {
+      'text': 'Katseid:'
+    }).append($('<label>', {
+      'id': 'attempts',
+      'text': '0'
+    })).appendTo(self.$exercisePreviewContainer);
+    $('<span>', {
+      'text': 'Neist õigeid vastuseid:'
+    }).append($('<label>', {
+      'id': 'score',
+      'text': '0'
+    })).appendTo(self.$exercisePreviewContainer);
+    $('<button>', {
+      'id': 'resetButton',
+      'text': 'Nulli'
+    }).on('click', function() {
+      exercise.attempts = 0;
+      exercise.score = 0;
+      attempts.innerHTML = '0';
+      score.innerHTML = '0';
+    }).appendTo(self.$exercisePreviewContainer);
+    $('<span>', {
+      'html': 'Kui tunned, et oled valmis <b>testi sooritama</b>, vajuta:'
+    }).append($('<button>', {
+      'id': 'showTestButton',
+      'text': 'Test'
+    }).on('click', function() {
+      testDiv.style.visibility = 'visible';
+    })).appendTo(self.$exercisePreviewContainer);
+    $('<div>', {
+      'id': 'testDiv',
+      'style': 'visibility:hidden;'
+    }).appendTo(self.$exercisePreviewContainer);
+
+    self.$exercisePreviewContainer.appendTo(self.$container);
 
     self.$container.appendTo($wrapper);
   };

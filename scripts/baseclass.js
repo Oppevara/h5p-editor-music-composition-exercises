@@ -1,5 +1,5 @@
 // Base class for self generating musical exercises of .... project
-// uses VexTab / VexFlow for notation 
+// uses VexTab / VexFlow for notation
 // for audio playback
 
 // the host webpage must load:
@@ -234,6 +234,13 @@ function MusicExercise(canvasId, width, x, y, scale) {
 			}
 		}
 	}
+
+	// XXX This is a destroy function that closes unneeded AudioContext elements
+	this.close = function() {
+		if ( this.audioContext ) {
+			this.audioContext.close();
+		}
+	};
 
 
 
