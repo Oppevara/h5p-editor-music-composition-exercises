@@ -11,27 +11,6 @@
   "preloadedJs": [
     {
       "path": "scripts/index.js"
-    },
-    {
-      "path": "scripts/baseclass.js"
-    },
-    {
-      "path": "scripts/describe_note.js"
-    },
-    {
-      "path": "scripts/draw_barlines.js"
-    },
-    {
-      "path": "scripts/draw_note.js"
-    },
-    {
-      "path": "scripts/find_missing_duration.js"
-    },
-    {
-      "path": "scripts/name_duration.js"
-    },
-    {
-      "path": "scripts/recognize_key_signature.js"
     }
   ],
   "preloadedCss": [
@@ -49,6 +28,11 @@
       "machineName": "H5P.JoubelUI",
       "majorVersion": 1,
       "minorVersion": 3
+    },
+    {
+      "machineName": "H5P.MusicCompositionExercisesLibrary",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
