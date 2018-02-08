@@ -35,107 +35,108 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       this.exercise.close();
     }
 
-    // Passing that to the functions is a must, current global variables will not cut it
-    // TODO Make sure context and class name are passed into each case
+    var containerNode = this.$container.get(0);
+    var canvasClassName = 'mainCanvas';
+
     switch(this.getType()) {
       case '1.1':
-        this.exercise = recognizeDuration();
+        this.exercise = recognizeDuration(containerNode, canvasClassName);
         break;
       case '1.2':
-        this.exercise = nameDuration();
+        this.exercise = nameDuration(containerNode, canvasClassName);
         break;
       case '1.3':
-        this.exercise = findMissingDuration();
+        this.exercise = findMissingDuration(containerNode, canvasClassName);
         break;
       case '1.4':
-        this.exercise = drawBarlines();
+        this.exercise = drawBarlines(containerNode, canvasClassName);
         break;
       case '1.5':
-        this.exercise = findTime();
+        this.exercise = findTime(containerNode, canvasClassName);
         break;
       case '2.5':
-        this.exercise = describeNote("treble");
+        this.exercise = describeNote("treble", containerNode, canvasClassName);
         break;
       case '2.6':
-        this.exercise = describeNote("bass");
+        this.exercise = describeNote("bass", containerNode, canvasClassName);
         break;
       case '2.7':
-        this.exercise = noteFromNoteName("treble");
+        this.exercise = noteFromNoteName("treble", containerNode, canvasClassName);
         break;
       case '2.8':
-        this.exercise = noteFromSyllable("treble");
+        this.exercise = noteFromSyllable("treble", containerNode, canvasClassName);
         break;
       case '2.9':
-        this.exercise = noteFromNotation("treble");
+        this.exercise = noteFromNotation("treble", containerNode, canvasClassName);
         break;
       case '2.10':
-        this.exercise = noteFromKeyboard("treble");
+        this.exercise = noteFromKeyboard("treble", containerNode, canvasClassName);
         break;
       case '2.11':
-        this.exercise = noteFromNoteName("bass");
+        this.exercise = noteFromNoteName("bass", containerNode, canvasClassName);
         break;
       case '2.12':
-        this.exercise = noteFromSyllable("bass");
+        this.exercise = noteFromSyllable("bass", containerNode, canvasClassName);
         break;
       case '2.13':
-        this.exercise = noteFromNotation("bass");
+        this.exercise = noteFromNotation("bass", containerNode, canvasClassName);
         break;
       case '2.14':
-        this.exercise = noteFromKeyboard("bass");
+        this.exercise = noteFromKeyboard("bass", containerNode, canvasClassName);
         break;
       case '2.15':
-        this.exercise = enharmonism("name");
+        this.exercise = enharmonism("name", containerNode, canvasClassName);
         break;
       case '2.16':
-        this.exercise = enharmonism("syllable");
+        this.exercise = enharmonism("syllable", containerNode, canvasClassName);
         break;
       case '2.17':
-        this.exercise = changeClef("bass");
+        this.exercise = changeClef("bass", containerNode, canvasClassName);
         break;
       case '2.18':
-        this.exercise = changeClef("treble");
+        this.exercise = changeClef("treble", containerNode, canvasClassName);
         break;
       case '2.19':
-        this.exercise = octaveFromNotation("treble");
+        this.exercise = octaveFromNotation("treble", containerNode, canvasClassName);
         break;
       case '2.20':
-        this.exercise = octaveFromNotation("bass");
+        this.exercise = octaveFromNotation("bass", containerNode, canvasClassName);
         break;
       case '3.1':
-        this.exercise = buildInterval("treble", "up");
+        this.exercise = buildInterval("treble", "up", containerNode, canvasClassName);
         break;
       case '3.2':
-        this.exercise = buildInterval("treble", "down");
+        this.exercise = buildInterval("treble", "down", containerNode, canvasClassName);
         break;
       case '3.3':
-        this.exercise = buildInterval("bass", "up");
+        this.exercise = buildInterval("bass", "up", containerNode, canvasClassName);
         break;
       case '3.4':
-        this.exercise = buildInterval("bass", "down");
+        this.exercise = buildInterval("bass", "down", containerNode, canvasClassName);
         break;
       case '3.5':
-        this.exercise = buildChord("treble", "up");
+        this.exercise = buildChord("treble", "up", containerNode, canvasClassName);
         break;
       case '3.6':
-        this.exercise = buildChord("treble", "down");
+        this.exercise = buildChord("treble", "down", containerNode, canvasClassName);
         break;
       case '3.7':
-        this.exercise = buildChord("bass", "up");
+        this.exercise = buildChord("bass", "up", containerNode, canvasClassName);
         break;
       case '3.8':
-        this.exercise = buildChord("bass", "down");
+        this.exercise = buildChord("bass", "down", containerNode, canvasClassName);
         break;
       case '7.1':
-        this.exercise = recognizeKeySignature();
+        this.exercise = recognizeKeySignature(containerNode, canvasClassName);
         break;
       case '7.2':
-        this.exercise = buildScale();
+        this.exercise = buildScale("major", containerNode, canvasClassName);
         break;
       case '7.3':
-        this.exercise = nameKey("major");
+        this.exercise = nameKey("major", containerNode, canvasClassName);
         break;
       case '7.4':
-        this.exercise = nameKey("minor");
+        this.exercise = nameKey("minor", containerNode, canvasClassName);
         break;
       default:
         alert(H5PEditor.t('H5PEditor.MusicCompositionExercises', 'invalidExerciseType', {}));
@@ -150,6 +151,13 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
    */
   MusicCompositionExercises.prototype.appendTo = function($wrapper) {
     var self = this;
+
+    self.$typeField = H5PEditor.findField('type', self.parent).$select;
+    self.$typeField.on('change', function() {
+      if ( !self.$exercisePreviewContainer.is(':hidden') ) {
+        self.generatePreview();
+      }
+    });
 
     self.$container = $('<div>', {
       'class': 'field field-name-' + self.field.name + ' h5p-music-composition-exercises group'
