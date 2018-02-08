@@ -270,8 +270,66 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     $('<br>').appendTo(self.$exercisePreviewContainer);
     self.$testDiv = $('<div>', {
       'class': 'testDiv',
-      'style': 'visibility:hidden;'
+      'style': 'visibility:hidden;',
+      'text': 'Kas soovite tulemuse salvestada pdf faili (nt esitamiseks õpetajale)? '
     }).appendTo(self.$exercisePreviewContainer);
+
+    JoubelUI.createButton({
+      'class': 'h5p-music-compositon-exercises-make-pdf-button makePdfButton',
+      'html': 'Jah',
+      'on': {
+        'click': function() {
+          self.$pdfDiv.css('visibility', 'visible');
+          self.exercise.saveToPdf = true;
+        }
+      },
+      'appendTo': self.$testDiv
+    });
+    JoubelUI.createButton({
+      'class': 'h5p-music-compositon-exercises-hide-pdf-button hidePdfButton',
+      'html': 'Ei',
+      'on': {
+        'click': function() {
+          self.$pdfDiv.css('visibility', 'hidden');
+          self.exercise.saveToPdf = false;
+        }
+      },
+      'appendTo': self.$testDiv
+    });
+    self.$pdfDiv = $('<div>', {
+      'class': 'h5p-music-compositon-exercises-pdf-div pdfDiv',
+      'style': 'visibility:hidden;',
+      'text': 'Nimi: '
+    }).append($('<input>', {
+      'type': 'text',
+      'class': 'name',
+      'size': '20'
+    })).appendTo(self.$testDiv);
+    self.$testDiv.append('Küsimus nr <b><label class="questionNumber">0</label></b>. Aega on: <b><label  class="timer">0</label></b> sekundit.<br> Aega kulunud kokku: <b><label class="totalTestTime">0</label></b> sekundit.<br>');
+    JoubelUI.createButton({
+      'class': 'h5p-music-compositon-exercises-start-test startTest',
+      'html': 'Alusta',
+      'on': {
+        'click': function() {
+          self.exercise.startTest();
+        }
+      },
+      'appendTo': self.$testDiv
+    });
+    JoubelUI.createButton({
+      'class': 'h5p-music-compositon-exercises-stop-test stopTest',
+      'html': 'Peata',
+      'on': {
+        'click': function() {
+          self.exercise.stopTest();
+        }
+      },
+      'appendTo': self.$testDiv
+    });
+    $('<br>').appendTo(self.$testDiv);
+    $('<p>').append($('<small>', {
+      'text': 'Teile esitatakse 5 küsimust, mis tuleb ettemääratud aja jooksul vastata. Kui jõuate varem valmis, vajutage lihtsalt "Vasta". Uus küsimus kuvatakse peale eelmise vastamist või aja täitumisel.'
+    })).appendTo(self.$testDiv);
 
     self.$exercisePreviewContainer.appendTo(self.$container);
 

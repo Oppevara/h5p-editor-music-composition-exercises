@@ -29,3 +29,19 @@
 .h5p-music-composition-exercises button.h5p-music-compositon-exercises-show-test::before {
   content: '\f135';
 }
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-start-test::before {
+  content: '\f04b';
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-start-test, .h5p-music-composition-exercises button.h5p-music-compositon-exercises-make-pdf-button {
+  margin-right: 2px;
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-stop-test::before {
+  content: '\f04d';
+}
+
+.h5p-music-composition-exercises button.h5p-music-compositon-exercises-stop-test, .h5p-music-composition-exercises button.h5p-music-compositon-exercises-hide-pdf-button {
+  margin-left: 2px;
+}
