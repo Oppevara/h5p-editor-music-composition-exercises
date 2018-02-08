@@ -36,6 +36,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     }
 
     // Passing that to the functions is a must, current global variables will not cut it
+    // TODO Make sure context and class name are passed into each case
     switch(this.getType()) {
       case '1.1':
         this.exercise = recognizeDuration();
@@ -194,6 +195,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       'html': 'Uuenda',
       'on': {
         'click': function() {
+          self.$feedback.html('');
           self.exercise.renew();
         }
       },
@@ -215,21 +217,23 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       },
       'appendTo': self.$exercisePreviewContainer
     });
-    $('<p>', {
+    self.$feedback = $('<p>', {
       'class': 'feedback'
     }).appendTo(self.$exercisePreviewContainer);
-    $('<span>', {
-      'text': 'Katseid: '
-    }).append($('<label>', {
+    self.$attempts = $('<label>', {
       'class': 'attempts',
       'text': '0'
-    })).appendTo(self.$exercisePreviewContainer);
+    });
     $('<span>', {
-      'text': '. Neist õigeid vastuseid: '
-    }).append($('<label>', {
+      'text': 'Katseid: '
+    }).append(self.$attempts).appendTo(self.$exercisePreviewContainer);
+    self.$score = $('<label>', {
       'class': 'score',
       'text': '0'
-    })).appendTo(self.$exercisePreviewContainer);
+    });
+    $('<span>', {
+      'text': '. Neist õigeid vastuseid: '
+    }).append(self.$score).appendTo(self.$exercisePreviewContainer);
     JoubelUI.createButton({
       'class': 'h5p-music-compositon-exercises-reset',
       'html': 'Nulli',
@@ -237,8 +241,8 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
         'click': function() {
           self.exercise.attempts = 0;
           self.exercise.score = 0;
-          attempts.innerHTML = '0'; // XXX Attempts element is not defined or global
-          score.innerHTML = '0'; // XXX Score element is not defined or global
+          self.$attempts.text('0');
+          self.$score.text('0');
         }
       },
       'appendTo': self.$exercisePreviewContainer
@@ -252,12 +256,12 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       'html': 'Test',
       'on': {
         'click': function() {
-          testDiv.style.visibility = 'visible'; // XXX This one needs and element selector
+          self.$testDiv.css('visibility', 'visible');
         }
       },
       'appendTo': resultsElement
     });
-    $('<div>', {
+    self.$testDiv = $('<div>', {
       'class': 'testDiv',
       'style': 'visibility:hidden;'
     }).appendTo(self.$exercisePreviewContainer);
