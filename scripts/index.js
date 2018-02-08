@@ -177,6 +177,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     $('<p>', {
       'class': 'description'
     }).appendTo(self.$exercisePreviewContainer);
+    $('<br>').appendTo(self.$exercisePreviewContainer);
     JoubelUI.createButton({
       'class': 'h5pf-music-compositon-exercises-play',
       'html': 'Mängi',
@@ -190,6 +191,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     $('<div>', {
       'class': 'mainCanvas'
     }).appendTo(self.$exercisePreviewContainer);
+    $('<br>').appendTo(self.$exercisePreviewContainer);
     JoubelUI.createButton({
       'class': 'h5p-music-compositon-exercises-renew',
       'html': 'Uuenda',
@@ -201,6 +203,8 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       },
       'appendTo': self.$exercisePreviewContainer
     });
+    $('<br>').appendTo(self.$exercisePreviewContainer);
+    $('<br>').appendTo(self.$exercisePreviewContainer);
     $('<span>', {
       'class': 'question'
     }).appendTo(self.$exercisePreviewContainer);
@@ -247,6 +251,8 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       },
       'appendTo': self.$exercisePreviewContainer
     });
+    $('<br>').appendTo(self.$exercisePreviewContainer);
+    $('<br>').appendTo(self.$exercisePreviewContainer);
     var resultsElement = $('<div>', {
       'html': 'Kui tunned, et oled valmis <b>testi sooritama</b>, vajuta: ',
       'class': 'resuts'
@@ -261,6 +267,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       },
       'appendTo': resultsElement
     });
+    $('<br>').appendTo(self.$exercisePreviewContainer);
     self.$testDiv = $('<div>', {
       'class': 'testDiv',
       'style': 'visibility:hidden;'
