@@ -21,8 +21,12 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     this.exercise = null;
   }
 
+  MusicCompositionExercises.prototype.getTypeField = function() {
+    return H5PEditor.findField(this.field.musicCompositionExercises.typeField, this.parent).$select;
+  };
+
   MusicCompositionExercises.prototype.getType = function() {
-    return H5PEditor.findField(this.field.musicCompositionExercises.typeField, this.parent).$select.val();
+    return this.getTypeField().val();
   };
 
   MusicCompositionExercises.prototype.generatePreview = function() {
@@ -152,7 +156,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
   MusicCompositionExercises.prototype.appendTo = function($wrapper) {
     var self = this;
 
-    self.$typeField = H5PEditor.findField('type', self.parent).$select;
+    self.$typeField = self.getTypeField();
     self.$typeField.on('change', function() {
       if ( !self.$exercisePreviewContainer.is(':hidden') ) {
         self.generatePreview();
