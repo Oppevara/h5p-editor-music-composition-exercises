@@ -15,20 +15,10 @@
   ],
   "preloadedCss": [
     {
-      "path": "styles/main.css"
+      "path": "styles/music-composition-exercises-editor.css"
     }
   ],
   "preloadedDependencies": [
-    {
-      "machineName": "FontAwesome",
-      "majorVersion": 4,
-      "minorVersion": 5
-    },
-    {
-      "machineName": "H5P.JoubelUI",
-      "majorVersion": 1,
-      "minorVersion": 3
-    },
     {
       "machineName": "H5P.MusicCompositionExercisesLibrary",
       "majorVersion": 1,
