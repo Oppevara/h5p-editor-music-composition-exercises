@@ -29,6 +29,14 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
     return this.getTypeField().val();
   };
 
+  MusicCompositionExercises.prototype.getAttemptsField = function() {
+    return H5PEditor.findField(this.field.musicCompositionExercises.attemptsField, this.parent).$input;
+  };
+
+  MusicCompositionExercises.prototype.getAttempts = function() {
+    return this.getAttemptsField().val();
+  };
+
   MusicCompositionExercises.prototype.generatePreview = function() {
     if ( this.$exercisePreviewContainer.is(':hidden') ) {
       this.$exercisePreviewContainer.show();
@@ -41,10 +49,15 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
 
     try {
       this.exercise = H5P.MusicCompositionExercisesLibrary.createExerciseInstance(this.getType(), this.$container.get(0), 'mainCanvas');
+      H5P.MusicCompositionExercisesLibrary.setMaxQuestions(this, this.$exercisePreviewContainer, this.getAttempts());
     }
     catch(err) {
       if ( err === 'invalidExerciseType' ) {
         alert(H5PEditor.t('H5PEditor.MusicCompositionExercises', 'invalidExerciseType', {}));
+      } else {
+        if ( console && console.error ) {
+          console.error(err);
+        }
       }
     }
   };
@@ -63,6 +76,11 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
       if ( !self.$exercisePreviewContainer.is(':hidden') ) {
         self.generatePreview();
       }
+    });
+
+    self.$attemptsField = self.getAttemptsField();
+    self.$attemptsField.on('change', function() {
+      H5P.MusicCompositionExercisesLibrary.setMaxQuestions(self, self.$exercisePreviewContainer, self.getAttempts());
     });
 
     self.$container = $('<div>', {
