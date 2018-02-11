@@ -10,6 +10,9 @@
   "machineName": "H5PEditor.MusicCompositionExercises",
   "preloadedJs": [
     {
+      "path": "scripts/h5peditor-optgroup-select.js"
+    },
+    {
       "path": "scripts/index.js"
     }
   ],
