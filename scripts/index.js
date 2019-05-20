@@ -126,7 +126,7 @@ H5PEditor.widgets.musicCompositionExercises = H5PEditor.MusicCompositionExercise
    * @return {void}
    */
   MusicCompositionExercises.prototype.remove = function() {
-    $wrapper.remove();
+    this.$container.remove();
   };
 
   return MusicCompositionExercises;
