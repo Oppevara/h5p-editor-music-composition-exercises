@@ -54,14 +54,15 @@ H5PEditor.widgets.mceOptgroupSelect = H5PEditor.MCEOptgroupSelect = (function (E
    * @returns {String} HTML.
    */
   C.prototype.createHtml = function () {
+    var options = '';
+
     if (this.field.optional === true || this.field.default === undefined) {
-      var options = E.createOption('-', '-');
+      options += E.createOption('-', '-');
     }
+
     options += C.createOptionsHtml(this.field.optgroups, this.field.options, this.value);
 
-    var select = '<select>' + options + '</select>';
-
-    return E.createFieldMarkup(this.field, select);
+    return E.createFieldMarkup(this.field, '<select>' + options + '</select>');
   };
 
   /**
